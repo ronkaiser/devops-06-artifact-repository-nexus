@@ -245,6 +245,16 @@ Verify the artifact in the Nexus UI under the snapshot repository.
 
 You can automate Nexus with its **REST API**: query repositories, list components, upload or download artifacts, etc.—often with **`curl`** or **`wget`** and HTTP Basic auth using a Nexus user’s credentials.
 
+Nexus Repository 3 exposes REST resources under **`/service/rest/`**. For example, to **list components** in a repository (sorted by version), use **HTTP Basic** auth and a **GET** request:
+
+```bash
+curl -u YOUR_NEXUS_USERNAME:YOUR_NEXUS_PASSWORD \
+  -X GET \
+  'http://YOUR_NEXUS_HOST:8081/service/rest/v1/components?repository=YOUR_REPO_NAME&sort=version'
+```
+
+Replace **`YOUR_REPO_NAME`** with the repository id from Nexus (for example **`maven-snapshots`**). Query parameters and available **`sort`** values are defined in the current API reference—confirm fields and pagination (`continuationToken`) in the docs when you script against this endpoint.
+
 **Practice:** rely on **official API documentation** for endpoints and payloads; APIs evolve, so memorizing URLs is less useful than knowing how to read the docs (as called out in the handout).
 
 ---
